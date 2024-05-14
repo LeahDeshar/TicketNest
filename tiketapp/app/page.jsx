@@ -1,7 +1,9 @@
+import TicketCard from "./(components)/TicketCard";
+
 const Dashboard = () => {
   return (
     <div>
-      <p>Dashboard</p>
+      <TicketCard />
     </div>
   );
 };
