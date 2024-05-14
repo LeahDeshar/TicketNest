@@ -1,5 +1,9 @@
 function TicketPageById({ params }) {
-  return <div>TicketPageById {params.id}</div>;
+  return (
+    <div>
+      <p>TicketPageById {params.id}</p>
+    </div>
+  );
 }
 
 export default TicketPageById;
