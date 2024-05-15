@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const TicketForm = () => {
+  const router = useRouter();
   const startingTkData = {
     title: "",
     description: "",
@@ -18,8 +19,19 @@ const TicketForm = () => {
     const name = e.target.name;
     setTkData((prev) => ({ ...prev, [name]: value }));
   };
-  const handleSubmit = () => {
-    console.log(tkData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch("/api/Tickets", {
+      method: "POST",
+      body: JSON.stringify({ formData: tkData }),
+      "content-type": "application/json",
+    });
+
+    if (!res.ok) {
+      throw new Error("Error");
+    }
+    router.refresh();
+    router.push("/");
   };
   return (
     <div className="flex justify-center">
@@ -44,7 +56,7 @@ const TicketForm = () => {
           <label>Description</label>
           <input
             id="desc"
-            name="desc"
+            name="description"
             type="text"
             value={tkData.description}
             required={true}
