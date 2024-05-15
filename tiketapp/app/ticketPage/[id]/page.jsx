@@ -1,9 +1,7 @@
+const { default: TicketForm } = require("@/app/(components)/TicketForm");
+
 function TicketPageById({ params }) {
-  return (
-    <div>
-      <p>TicketPageById {params.id}</p>
-    </div>
-  );
+  return <TicketForm />;
 }
 
 export default TicketPageById;
