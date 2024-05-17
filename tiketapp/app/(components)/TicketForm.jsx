@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const TicketForm = () => {
+const TicketForm = ({ ticket }) => {
   const router = useRouter();
   const startingTkData = {
     title: "",
@@ -13,6 +13,9 @@ const TicketForm = () => {
     priority: 1,
     progress: 0,
   };
+
+  const EDITMODE = ticket?._id === "new" ? false : true;
+
   const [tkData, setTkData] = useState(startingTkData);
   const handleChange = (e) => {
     const value = e.target.value;
@@ -35,6 +38,15 @@ const TicketForm = () => {
     router.refresh();
     router.push("/");
   };
+
+  if (EDITMODE) {
+    startingTkData["title"] = ticket?.title;
+    startingTkData["description"] = ticket?.description;
+    startingTkData["priority"] = ticket?.priority;
+    startingTkData["progress"] = ticket?.progress;
+    startingTkData["status"] = ticket?.status;
+    startingTkData["category"] = ticket?.category;
+  }
   return (
     <div className="flex justify-center">
       <form
