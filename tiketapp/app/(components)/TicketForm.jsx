@@ -24,16 +24,38 @@ const TicketForm = ({ ticket }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api/Tickets", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ formData: tkData }),
-    });
+    // const res = await fetch("/api/Tickets", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ formData: tkData }),
+    // });
 
-    if (!res.ok) {
-      throw new Error("Error");
+    // if (!res.ok) {
+    //   throw new Error("Error");
+    // }
+    if (EDITMODE) {
+      const res = await fetch(`/api/Tickets/${ticket._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ formData: tkData }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to update ticket");
+      }
+    } else {
+      const res = await fetch("/api/Tickets", {
+        method: "POST",
+        body: JSON.stringify({ formData: tkData }),
+        //@ts-ignore
+        "Content-Type": "application/json",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to create ticket");
+      }
     }
     router.refresh();
     router.push("/");
@@ -54,7 +76,7 @@ const TicketForm = ({ ticket }) => {
         method="post"
         onSubmit={handleSubmit}
       >
-        <h3>Create Your Ticket</h3>
+        <h3>{EDITMODE ? "Update " : "Create "} Your Ticket</h3>
         <div>
           <label>Title</label>
           <input
@@ -171,7 +193,11 @@ const TicketForm = ({ ticket }) => {
             <option value="done">Done</option>
           </select>
         </div>
-        <input type="submit" value="Create Ticket" className="btn" />
+        <input
+          type="submit"
+          value={EDITMODE ? "Update Ticket" : "Create Ticket"}
+          className="btn"
+        />
       </form>
     </div>
   );
