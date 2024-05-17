@@ -72,12 +72,12 @@ const TicketForm = ({ ticket }) => {
   return (
     <div className="flex justify-center">
       <form
-        className="flex flex-col gap-3 w-1/2"
+        className=" flex flex-col justify-center w-1/2"
         method="post"
         onSubmit={handleSubmit}
       >
         <h3>{EDITMODE ? "Update " : "Create "} Your Ticket</h3>
-        <div>
+        <div className="flex flex-col gap-3">
           <label>Title</label>
           <input
             id="title"
@@ -88,7 +88,7 @@ const TicketForm = ({ ticket }) => {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-3">
           <label>Description</label>
           <input
             id="desc"
@@ -100,7 +100,7 @@ const TicketForm = ({ ticket }) => {
             rows="5"
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-3">
           <label>Category</label>
           <select
             name="category"
@@ -112,7 +112,7 @@ const TicketForm = ({ ticket }) => {
             <option value="Network Problem">Network Problem</option>
           </select>
         </div>
-        <div>
+        <div className="flex flex-col gap-3">
           <label>Priority</label>
           <div className="flex flex-row gap-3">
             <div>
@@ -173,7 +173,7 @@ const TicketForm = ({ ticket }) => {
           </div>
         </div>
 
-        <div>
+        <div className="flex flex-col gap-3">
           <label>Progress</label>
           <input
             type="range"
@@ -185,7 +185,7 @@ const TicketForm = ({ ticket }) => {
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-3">
           <label>Status</label>
           <select name="status" value={tkData.status} onChange={handleChange}>
             <option value="not started">Not Started</option>
